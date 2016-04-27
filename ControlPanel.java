@@ -7,8 +7,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
 import com.ggl.game2048.controller.StartGameActionListener;
 import com.ggl.game2048.controller.ActivateBotActionListener;
+import com.ggl.game2048.controller.EnableReplayActionListener;
 import com.ggl.game2048.model.Game2048Model;
 
 // creates the panel with the buttons
@@ -28,6 +30,7 @@ public class ControlPanel {
   private void createPartControl() {
     StartGameActionListener startListener = new StartGameActionListener(frame, model);
     ActivateBotActionListener botListener = new ActivateBotActionListener(frame, model);
+    EnableReplayActionListener replayListener = new EnableReplayActionListener(frame, model);
 
     panel = new JPanel();
     panel.setLayout(new GridBagLayout());
@@ -42,6 +45,11 @@ public class ControlPanel {
     JButton activateBotButton = new JButton("Activate Bot");
     activateBotButton.addActionListener(botListener);
     addComponent(panel, activateBotButton, 0, gridY++, 1, 1, regularInsets,
+        GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
+
+    JButton replayButton = new JButton("Replay");
+    replayButton.addActionListener(replayListener);
+    addComponent(panel, replayButton, 0, gridY++, 1, 1, regularInsets,
         GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
   }
 

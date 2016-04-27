@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
+
 import com.ggl.game2048.model.Game2048Model;
 
 // this class provides the file i/o functions to read and store the records

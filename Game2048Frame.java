@@ -9,16 +9,16 @@ import javax.swing.InputMap;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+
+import com.ggl.game2048.properties.HighScoreProperties;
 import com.ggl.game2048.controller.DownArrowAction;
 import com.ggl.game2048.controller.LeftArrowAction;
 import com.ggl.game2048.controller.RightArrowAction;
 import com.ggl.game2048.controller.UpArrowAction;
 import com.ggl.game2048.model.Game2048Model;
-import com.ggl.game2048.properties.HighScoreProperties;
 
 // Here the main game frame is created and filled with all the components
 public class Game2048Frame {
-
   private ControlPanel controlPanel;
   private Game2048Model model;
   private GridPanel gridPanel;
@@ -65,8 +65,8 @@ public class Game2048Frame {
     JPanel sidePanel = new JPanel();
     sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.PAGE_AXIS));
     sidePanel.add(Box.createVerticalStrut(30));
-    sidePanel.add(controlPanel.getPanel());
     sidePanel.add(scorePanel.getPanel());
+    sidePanel.add(controlPanel.getPanel());
     return sidePanel;
   }
 

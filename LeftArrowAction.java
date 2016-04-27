@@ -1,7 +1,6 @@
 package com.ggl.game2048.controller;
 
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
 
 import com.ggl.game2048.model.Game2048Model;

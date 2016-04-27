@@ -1,10 +1,11 @@
 package com.ggl.game2048;
 
 import javax.swing.SwingUtilities;
+
 import com.ggl.game2048.model.Game2048Model;
 import com.ggl.game2048.view.Game2048Frame;
 
-// Here the journey starts...
+// Here the journey begins...
 public class Game2048 implements Runnable {
 
   @Override

@@ -2,6 +2,7 @@ package com.ggl.game2048.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import com.ggl.game2048.model.Game2048Model;
 import com.ggl.game2048.view.Game2048Frame;
 

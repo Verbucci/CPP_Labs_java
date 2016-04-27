@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+
 import com.ggl.game2048.model.Game2048Model;
 
 // draws the GAME OVER image in the end of the game
@@ -34,9 +35,9 @@ public class GameOverImage implements Runnable {
 
     graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
 
-    graphics.setColor(Color.BLUE);
+    graphics.setColor(Color.ORANGE);
     Font font = graphics.getFont();
-    Font largeFont = font.deriveFont(72.0F);
+    Font largeFont = font.deriveFont(Font.BOLD, 80);
     FontRenderContext fontRender = new FontRenderContext(null, true, true);
     Rectangle2D rectangle = largeFont.getStringBounds(text, fontRender);
     int rectangleWidth = (int) Math.round(rectangle.getWidth());

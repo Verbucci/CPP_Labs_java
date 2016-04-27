@@ -2,6 +2,7 @@ package com.ggl.game2048.view;
 
 import java.awt.Graphics;
 import javax.swing.JPanel;
+
 import com.ggl.game2048.model.Game2048Model;
 
 // this class draws the grid game panel

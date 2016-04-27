@@ -7,10 +7,14 @@ import java.awt.Point;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-//this class contains the cell's properties
-public class Cell {
-
+public class Cell implements Serializable {
+  /**
+   * the serialVersionUID is necessary because
+   * this class will be written to the replay file
+   */
+  private static final long serialVersionUID = -7794066972936428894L;
   private static final int CELL_WIDTH = 120;
   private int value;
   private Point cellLocation;

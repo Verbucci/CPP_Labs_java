@@ -9,6 +9,7 @@ import java.text.NumberFormat;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 import com.ggl.game2048.model.Game2048Model;
 
 // this class builds the score panel on the right side of the window

@@ -1,8 +1,9 @@
 package com.ggl.game2048.controller;
 
+import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
+
 import com.ggl.game2048.model.Game2048Model;
 import com.ggl.game2048.view.Game2048Frame;
 
@@ -36,6 +37,10 @@ public class ActivateBotActionListener implements ActionListener {
                 } else {
                   model.addNewCell();
 
+                  if (model.getBotReplayEnabled()) {
+                    model.saveCurrentSteps();
+                  }
+
                   frame.repaintGridPanel();
                   frame.updateScorePanel();
                 }
@@ -49,6 +54,10 @@ public class ActivateBotActionListener implements ActionListener {
                   model.setArrowActive(false);
                 } else {
                   model.addNewCell();
+
+                  if (model.getBotReplayEnabled()) {
+                    model.saveCurrentSteps();
+                  }
 
                   frame.repaintGridPanel();
                   frame.updateScorePanel();
@@ -64,6 +73,10 @@ public class ActivateBotActionListener implements ActionListener {
                 } else {
                   model.addNewCell();
 
+                  if (model.getBotReplayEnabled()) {
+                    model.saveCurrentSteps();
+                  }
+
                   frame.repaintGridPanel();
                   frame.updateScorePanel();
                 }
@@ -77,6 +90,10 @@ public class ActivateBotActionListener implements ActionListener {
                   model.setArrowActive(false);
                 } else {
                   model.addNewCell();
+
+                  if (model.getBotReplayEnabled()) {
+                    model.saveCurrentSteps();
+                  }
 
                   frame.repaintGridPanel();
                   frame.updateScorePanel();
