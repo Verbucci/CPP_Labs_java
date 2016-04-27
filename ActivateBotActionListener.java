@@ -12,6 +12,7 @@ public class ActivateBotActionListener implements ActionListener {
 
   private Game2048Frame frame;
   private Game2048Model model;
+  private int localGameCounter;
 
   public ActivateBotActionListener(Game2048Frame frame, Game2048Model model) {
     this.frame = frame;
@@ -21,88 +22,103 @@ public class ActivateBotActionListener implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent event) {
 
-    if (model.isGameStarted()) {
+    int repeatsNumber;
 
-      int movement;
-      Random randomGenerator = new Random();
+    if (model.getRecordFilesEnabled()) {
+      repeatsNumber = 100000;
+    } else {
+      repeatsNumber = 1;
+    }
 
-      while (!model.isGameOver()) {
-        movement = randomGenerator.nextInt(3);
-        switch (movement) {
-          case 0:
-            if (model.isArrowActive()) {
-              if (model.moveCellsUp()) {
-                if (model.isGameOver()) {
-                  model.setArrowActive(false);
-                } else {
-                  model.addNewCell();
+    for (int i = 0; i < repeatsNumber; i++) {
+      if (model.isGameStarted()) {
 
-                  if (model.getBotReplayEnabled()) {
-                    model.saveCurrentSteps();
+        int movement;
+        Random randomGenerator = new Random();
+
+        while (!model.isGameOver()) {
+
+          movement = randomGenerator.nextInt(4);
+
+          switch (movement) {
+            case 0:
+              if (model.isArrowActive()) {
+                if (model.moveCellsUp()) {
+                  if (model.isGameOver()) {
+                    model.setArrowActive(false);
+                  } else {
+                    model.addNewCell();
+
+                    if (model.getBotReplayEnabled()) {
+                      model.saveCurrentSteps();
+                    }
                   }
-
-                  frame.repaintGridPanel();
-                  frame.updateScorePanel();
                 }
               }
-            }
-            break;
-          case 1:
-            if (model.isArrowActive()) {
-              if (model.moveCellsDown()) {
-                if (model.isGameOver()) {
-                  model.setArrowActive(false);
-                } else {
-                  model.addNewCell();
+              break;
+            case 1:
+              if (model.isArrowActive()) {
+                if (model.moveCellsDown()) {
+                  if (model.isGameOver()) {
+                    model.setArrowActive(false);
+                  } else {
+                    model.addNewCell();
 
-                  if (model.getBotReplayEnabled()) {
-                    model.saveCurrentSteps();
+                    if (model.getBotReplayEnabled()) {
+                      model.saveCurrentSteps();
+                    }
                   }
-
-                  frame.repaintGridPanel();
-                  frame.updateScorePanel();
                 }
               }
-            }
-            break;
-          case 2:
-            if (model.isArrowActive()) {
-              if (model.moveCellsLeft()) {
-                if (model.isGameOver()) {
-                  model.setArrowActive(false);
-                } else {
-                  model.addNewCell();
+              break;
+            case 2:
+              if (model.isArrowActive()) {
+                if (model.moveCellsLeft()) {
+                  if (model.isGameOver()) {
+                    model.setArrowActive(false);
+                  } else {
+                    model.addNewCell();
 
-                  if (model.getBotReplayEnabled()) {
-                    model.saveCurrentSteps();
+                    if (model.getBotReplayEnabled()) {
+                      model.saveCurrentSteps();
+                    }
                   }
-
-                  frame.repaintGridPanel();
-                  frame.updateScorePanel();
                 }
               }
-            }
-            break;
-          case 3:
-            if (model.isArrowActive()) {
-              if (model.moveCellsRight()) {
-                if (model.isGameOver()) {
-                  model.setArrowActive(false);
-                } else {
-                  model.addNewCell();
+              break;
+            case 3:
+              if (model.isArrowActive()) {
+                if (model.moveCellsRight()) {
+                  if (model.isGameOver()) {
+                    model.setArrowActive(false);
+                  } else {
+                    model.addNewCell();
 
-                  if (model.getBotReplayEnabled()) {
-                    model.saveCurrentSteps();
+                    if (model.getBotReplayEnabled()) {
+                      model.saveCurrentSteps();
+                    }
                   }
-
-                  frame.repaintGridPanel();
-                  frame.updateScorePanel();
                 }
               }
-            }
-            break;
+              break;
+          }
         }
+        frame.repaintGridPanel();
+        frame.updateScorePanel();
       }
+
+      if (model.getRecordFilesEnabled()) {
+        model.setHighScores();
+        model.initializeGrid();
+        model.setGameStarted(true);
+        model.setArrowActive(true);
+        model.addNewCell();
+        model.addNewCell();
+
+        localGameCounter = model.getCurrentGameCounter();
+        model.setCurrentGameCounter(localGameCounter + 1);
+      }
+
     }
   }
 

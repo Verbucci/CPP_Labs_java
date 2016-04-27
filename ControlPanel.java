@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import com.ggl.game2048.controller.StartGameActionListener;
 import com.ggl.game2048.controller.ActivateBotActionListener;
 import com.ggl.game2048.controller.EnableReplayActionListener;
+import com.ggl.game2048.controller.SortGameReplaysActionListener;
 import com.ggl.game2048.model.Game2048Model;
 
 // creates the panel with the buttons
@@ -31,6 +32,7 @@ public class ControlPanel {
     StartGameActionListener startListener = new StartGameActionListener(frame, model);
     ActivateBotActionListener botListener = new ActivateBotActionListener(frame, model);
     EnableReplayActionListener replayListener = new EnableReplayActionListener(frame, model);
+    SortGameReplaysActionListener sortReplaysListener = new SortGameReplaysActionListener(frame, model);
 
     panel = new JPanel();
     panel.setLayout(new GridBagLayout());
@@ -50,6 +52,11 @@ public class ControlPanel {
     JButton replayButton = new JButton("Replay");
     replayButton.addActionListener(replayListener);
     addComponent(panel, replayButton, 0, gridY++, 1, 1, regularInsets,
+        GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
+    
+    JButton sortReplaysButton = new JButton("Sort Replays");
+    sortReplaysButton.addActionListener(sortReplaysListener);
+    addComponent(panel, sortReplaysButton, 0, gridY++, 1, 1, regularInsets,
         GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
   }
 

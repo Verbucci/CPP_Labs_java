@@ -25,7 +25,7 @@ public class StartGameActionListener implements ActionListener {
     model.setArrowActive(true);
     model.addNewCell();
     model.addNewCell();
-
+    
     frame.repaintGridPanel();
     frame.updateScorePanel();
   }

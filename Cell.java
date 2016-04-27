@@ -132,6 +132,54 @@ public class Cell implements Serializable {
 
     return color;
   }
+  
+  /*  private Color getTileColor() {
+  Color color = Color.WHITE;
+
+  switch (value) {
+    case 2:
+      color = Color.WHITE;
+      break;
+    case 4:
+      color = Color.WHITE;
+      break;
+    case 8:
+      color = Color.LIGHT_GRAY;
+      break;
+    case 16:
+      color = Color.YELLOW;
+      break;
+    case 32:
+      color = Color.ORANGE;
+      break;
+    case 64:
+      color = Color.GREEN;
+      break;
+    case 128:
+      color = Color.CYAN;
+      break;
+    case 256:
+      color = Color.BLUE;
+      break;
+    case 512:
+      color = Color.RED;
+      break;
+    case 1024:
+      color = Color.PINK;
+      break;
+    case 2048:
+      color = new Color(85, 85, 0);
+      break;
+    case 4096:
+      color = new Color(70, 85, 0);
+      break;
+    case 8192:
+      color = new Color(85, 85, 0);
+      break;
+    default:
+      color = new Color(43, 43, 0);
+      break;
+  }*/
 
   private Color getTextColor() {
     return (value >= 256) ? Color.WHITE : Color.BLACK;
