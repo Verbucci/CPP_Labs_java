@@ -35,7 +35,7 @@ public class GameOverImage implements Runnable {
 
     graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
 
-    graphics.setColor(Color.ORANGE);
+    graphics.setColor(Color.RED);
     Font font = graphics.getFont();
     Font largeFont = font.deriveFont(Font.BOLD, 80);
     FontRenderContext fontRender = new FontRenderContext(null, true, true);

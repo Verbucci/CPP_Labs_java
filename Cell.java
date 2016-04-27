@@ -11,11 +11,10 @@ import java.io.Serializable;
 
 public class Cell implements Serializable {
   /**
-   * the serialVersionUID is necessary because
-   * this class will be written to the replay file
+   * the serialVersionUID is necessary because this class will be written to the replay file
    */
   private static final long serialVersionUID = -7794066972936428894L;
-  private static final int CELL_WIDTH = 120;
+  private static int CELL_WIDTH = 120;
   private int value;
   private Point cellLocation;
 
@@ -25,6 +24,10 @@ public class Cell implements Serializable {
 
   public static int getCellWidth() {
     return CELL_WIDTH;
+  }
+
+  public void setCellWidth(int newWidth) {
+    CELL_WIDTH = newWidth;
   }
 
   public int getValue() {

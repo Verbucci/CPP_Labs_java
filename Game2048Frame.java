@@ -24,6 +24,7 @@ public class Game2048Frame {
   private GridPanel gridPanel;
   private HighScoreProperties highScoreProperties;
   private JFrame frame;
+  private JPanel mainPanel;
   private ScorePanel scorePanel;
 
   public Game2048Frame(Game2048Model model) {
@@ -34,6 +35,7 @@ public class Game2048Frame {
   }
 
   private void createPartControl() {
+    model.setGridWidth(4);
     gridPanel = new GridPanel(model);
     scorePanel = new ScorePanel(model);
     controlPanel = new ControlPanel(this, model);
@@ -50,7 +52,7 @@ public class Game2048Frame {
 
     setKeyBindings();
 
-    JPanel mainPanel = new JPanel();
+    mainPanel = new JPanel();
     mainPanel.setLayout(new FlowLayout());
     mainPanel.add(createSidePanel());
     mainPanel.add(gridPanel);
@@ -97,6 +99,19 @@ public class Game2048Frame {
     highScoreProperties.saveProperties();
     frame.dispose();
     System.exit(0);
+  }
+
+  public int getSelectedWidth() {
+    return controlPanel.getCurrentWidth();
+  }
+
+  public void resetGridPanel() {
+    mainPanel.remove(gridPanel);
+    gridPanel = new GridPanel(model);
+    setKeyBindings();
+    mainPanel.add(gridPanel);
+    mainPanel.revalidate();
+    frame.pack();
   }
 
   public void repaintGridPanel() {

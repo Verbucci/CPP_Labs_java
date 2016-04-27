@@ -12,18 +12,22 @@ import com.ggl.game2048.controller.ReplayThread;
 // Main game algorithm, contains all the functions working with the grid
 public class Game2048Model {
 
-  private static final int FRAME_THICKNESS = 5;
-  private static final int GRID_WIDTH = 4;
-  private static int STEP_COUNTER = 0;
-  private static int STEP_QUANTITY = 1;
+  private static final int FRAME_THICKNESS = 3;
+  private int GRID_WIDTH = 8;
+  private int STEP_COUNTER = 0;
+  private int STEP_QUANTITY = 1;
   private boolean replayEnabled = false;
-  private boolean botReplayEnabled = true;
+  private boolean botReplayEnabled = false;
+  private boolean recordFilesEnable = false;
   private boolean gameStarted = false;
   private boolean arrowActive;
   private int highScore;
   private int highCell;
   private int currentScore;
   private int currentCell;
+  private int filesQuantity = 10000;
+  private int gameCounter = 0;
+  private int fileForReplayID = 0;
   private Cell[][] grid;
   private Random random;
   private ArrayList<Cell[][]> stepList;
@@ -41,8 +45,10 @@ public class Game2048Model {
   }
 
   public void initializeGrid() {
-    STEP_COUNTER = 0;
-    stepList = new ArrayList<Cell[][]>();
+    if (replayEnabled || botReplayEnabled) {
+      STEP_COUNTER = 0;
+      stepList = new ArrayList<Cell[][]>();
+    }
     int frameThicknessX = FRAME_THICKNESS;
     for (int i = 0; i < GRID_WIDTH; i++) {
       int frameThicknessY = FRAME_THICKNESS;
@@ -313,6 +319,11 @@ public class Game2048Model {
     currentCell = (cellValue > currentCell) ? cellValue : currentCell;
   }
 
+  public Dimension getPreferredSize() {
+    int width = GRID_WIDTH * Cell.getCellWidth() + FRAME_THICKNESS * 5;
+    return new Dimension(width, width);
+  }
+
   public Cell getCell(int coordinateX, int coordinateY) {
     return grid[coordinateX][coordinateY];
   }
@@ -349,8 +360,24 @@ public class Game2048Model {
     return STEP_QUANTITY;
   }
 
+  public int getFilesQuantity() {
+    return filesQuantity;
+  }
+
   public int getWidth() {
     return GRID_WIDTH;
+  }
+
+  public void setGridWidth(int gridWidth) {
+    GRID_WIDTH = gridWidth;
+  }
+
+  public void setCellWidth(int cellWidth) {
+    for (int i = 0; i < GRID_WIDTH; i++) {
+      for (int j = 0; j < GRID_WIDTH; j++) {
+        grid[i][j].setCellWidth(cellWidth);
+      }
+    }
   }
 
   public boolean isArrowActive() {
@@ -373,20 +400,44 @@ public class Game2048Model {
     this.replayEnabled = replayEnabled;
   }
 
-  public Dimension getPreferredSize() {
-    int width = GRID_WIDTH * Cell.getCellWidth() + FRAME_THICKNESS * 5;
-    return new Dimension(width, width);
+  public boolean getRecordFilesEnabled() {
+    return recordFilesEnable;
+  }
+
+  public void setCurrentGameCounter(int gameCounter) {
+    this.gameCounter = gameCounter;
+  }
+
+  public int getCurrentGameCounter() {
+    return gameCounter;
+  }
+
+  public void setFileForReplayID(int fileForReplayID) {
+    this.fileForReplayID = fileForReplayID;
+  }
+
+  public int getFileForReplayID() {
+    if (botReplayEnabled) {
+      return 0;
+    } else {
+      return fileForReplayID;
+    }
+  }
+
+  public void setGrid(Cell[][] grid) {
+    this.grid = grid;
   }
 
   public void writeListToFile() {
     saveOrLoadGame = new SaveOrLoadGame(this);
-    saveOrLoadGame.saveGame(stepList);
+    saveOrLoadGame.saveGame(stepList, gameCounter);
     stepList.clear();
   }
 
   public void draw(Graphics graphics) {
     graphics.setColor(Color.BLACK);
     Dimension dimension = getPreferredSize();
+
     graphics.fillRect(0, 0, dimension.width, dimension.height);
 
     for (int i = 0; i < GRID_WIDTH; i++) {
@@ -403,7 +454,6 @@ public class Game2048Model {
   public void saveCurrentSteps() {
     stepList.add(grid);
     STEP_COUNTER++;
-    System.out.println(STEP_COUNTER);
     if (isGameOver()) {
       writeListToFile();
       STEP_QUANTITY = STEP_COUNTER;
@@ -413,13 +463,9 @@ public class Game2048Model {
 
   public void replayGame() {
     saveOrLoadGame = new SaveOrLoadGame(this);
-    stepList = saveOrLoadGame.loadGame();
+    stepList = saveOrLoadGame.loadGame(gameCounter);
     ReplayThread replay = new ReplayThread(this, stepList);
     replay.run();
-  }
-
-  public void setGrid(Cell[][] grid) {
-    this.grid = grid;
   }
 
   public void printList() {
@@ -429,4 +475,5 @@ public class Game2048Model {
       System.out.println(grid);
     }
   }
+
 }
